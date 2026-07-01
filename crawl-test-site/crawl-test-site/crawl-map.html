@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Crawl Coverage Map</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:monospace;background:#0a0e17;color:#e2e8f0;padding:24px;min-height:100vh}
+    h1{color:#60a5fa;margin-bottom:4px;font-size:20px}
+    .sub{color:#64748b;font-size:13px;margin-bottom:24px}
+    
+    .legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+    .litem{display:flex;align-items:center;gap:6px;font-size:12px}
+    .dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+    
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{background:#1e293b;color:#94a3b8;padding:8px 10px;text-align:left;border-bottom:2px solid #334155;white-space:nowrap}
+    td{padding:7px 10px;border-bottom:1px solid #1e293b;vertical-align:middle}
+    tr:hover td{background:#111827}
+    .path{color:#93c5fd;font-weight:bold}
+    .path a{color:#93c5fd;text-decoration:none}
+    .path a:hover{text-decoration:underline}
+    .d0{color:#60a5fa}
+    .d1{color:#f59e0b}
+    .d2{color:#a78bfa}
+    .d3{color:#f472b6}
+    .d4{color:#fb923c}
+    .d5{color:#ef4444}
+    
+    .yes{color:#22c55e;font-size:15px}
+    .no{color:#374151;font-size:15px}
+    .def{color:#22c55e;font-size:11px;background:#14532d;padding:1px 5px;border-radius:3px}
+    
+    .section-header td{background:#0f172a;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:5px 10px}
+    
+    .depth-col{text-align:center}
+    .note{font-size:11px;color:#475569;margin-top:2px}
+    
+    h2{color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:24px 0 8px}
+  </style>
+</head>
+<body>
+  <h1>🗺 Crawl Coverage Map</h1>
+  <p class="sub">Які сторінки буде проіндексовано при кожному режимі краулінгу</p>
+
+  <div class="legend">
+    <div class="litem"><div class="dot" style="background:#60a5fa"></div><span class="d0">Depth 0 — Root</span></div>
+    <div class="litem"><div class="dot" style="background:#f59e0b"></div><span class="d1">Depth 1</span></div>
+    <div class="litem"><div class="dot" style="background:#a78bfa"></div><span class="d2">Depth 2 (default)</span></div>
+    <div class="litem"><div class="dot" style="background:#f472b6"></div><span class="d3">Depth 3</span></div>
+    <div class="litem"><div class="dot" style="background:#fb923c"></div><span class="d4">Depth 4</span></div>
+    <div class="litem"><div class="dot" style="background:#ef4444"></div><span class="d5">Depth 5</span></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Сторінка</th>
+        <th class="depth-col">Глибина</th>
+        <th class="depth-col">single</th>
+        <th class="depth-col">depth_1</th>
+        <th class="depth-col">depth_2 <span class="def">def</span></th>
+        <th class="depth-col">depth_3</th>
+        <th class="depth-col">depth_4</th>
+        <th class="depth-col">depth_5</th>
+        <th class="depth-col">full_site</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ROOT -->
+      <tr class="section-header"><td colspan="9">ROOT</td></tr>
+      <tr>
+        <td class="path"><a href="index.html">index.html</a></td>
+        <td class="depth-col d0">0</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+
+      <!-- ABOUT -->
+      <tr class="section-header"><td colspan="9">/about</td></tr>
+      <tr>
+        <td class="path"><a href="about/index.html">about/index.html</a></td>
+        <td class="depth-col d1">1</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="about/team.html">about/team.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="about/history.html">about/history.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="about/members/alice.html">about/members/alice.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="about/members/bob.html">about/members/bob.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+
+      <!-- PRODUCTS -->
+      <tr class="section-header"><td colspan="9">/products</td></tr>
+      <tr>
+        <td class="path"><a href="products/index.html">products/index.html</a></td>
+        <td class="depth-col d1">1</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/index.html">products/category/index.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/clothing.html">products/category/clothing.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/item/laptop.html">products/category/item/laptop.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/item/phone.html">products/category/item/phone.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/item/specs.html">products/category/item/specs.html</a></td>
+        <td class="depth-col d4">4</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/item/reviews.html">products/category/item/reviews.html</a></td>
+        <td class="depth-col d4">4</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="products/category/item/deep-review.html">products/category/item/deep-review.html</a></td>
+        <td class="depth-col d5">5</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+
+      <!-- BLOG -->
+      <tr class="section-header"><td colspan="9">/blog</td></tr>
+      <tr>
+        <td class="path"><a href="blog/index.html">blog/index.html</a></td>
+        <td class="depth-col d1">1</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="blog/post/intro.html">blog/post/intro.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="blog/post/guide.html">blog/post/guide.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="blog/post/comments/thread1.html">blog/post/comments/thread1.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="blog/post/comments/reply1.html">blog/post/comments/reply1.html</a></td>
+        <td class="depth-col d4">4</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+
+      <!-- DOCS -->
+      <tr class="section-header"><td colspan="9">/docs</td></tr>
+      <tr>
+        <td class="path"><a href="docs/index.html">docs/index.html</a></td>
+        <td class="depth-col d1">1</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/quickstart.html">docs/quickstart.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/api/index.html">docs/api/index.html</a></td>
+        <td class="depth-col d2">2</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/api/v1/index.html">docs/api/v1/index.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/api/v2.html">docs/api/v2.html</a></td>
+        <td class="depth-col d3">3</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/api/v1/endpoints/users.html">docs/api/v1/endpoints/users.html</a></td>
+        <td class="depth-col d4">4</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/api/v1/endpoints/auth.html">docs/api/v1/endpoints/auth.html</a></td>
+        <td class="depth-col d4">4</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+      <tr>
+        <td class="path"><a href="docs/api/v1/endpoints/users-detail.html">docs/api/v1/endpoints/users-detail.html</a></td>
+        <td class="depth-col d5">5</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col no">–</td>
+        <td class="depth-col no">–</td><td class="depth-col no">–</td><td class="depth-col yes">✓</td><td class="depth-col yes">✓</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background:#0f172a">
+        <td style="color:#64748b;font-size:11px;padding:8px 10px">РАЗОМ СТОРІНОК:</td>
+        <td></td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">1</td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">5</td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">11</td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">16</td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">21</td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">24</td>
+        <td class="depth-col" style="color:#94a3b8;font-weight:bold">24</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>
